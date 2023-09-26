@@ -4,22 +4,22 @@ let url = 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.ge
 // Create base map and layer to hold earthquake markers
 function createMap(earthquakes) {
 
-    let streetmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    let USmap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
 
     let baseMaps = {
-        "Street Map": streetmap
+        "Street Map": USmap
       };
 
     let overlayMaps = {
-        "All Earthquakes (past 7 days)": earthquakes
+        "All Earthquakes from the Past 7 Days": earthquakes
       };
 
     let map = L.map("map", {
         center: [39.83, -98.58],
         zoom: 5,
-        layers: [streetmap, earthquakes]
+        layers: [USmap, earthquakes]
       })
 
     let legend = L.control({position: 'bottomleft'});
@@ -57,7 +57,7 @@ function markerSize(magnitude) {
     return magnitude * 15000;
   }
 
-// Determine marker color
+  // Determine marker color
 function chooseColor(depth) {
     switch (true) {
         case Number(depth) < 10: return '#33ff99'
